@@ -5,6 +5,10 @@ document.getElementById("calculation").addEventListener("click", () => {
   const totalExpense = calculateExpense();
   const previousTotalExpense = getTextElementById("total-expense");
   const newTotalExpense = previousTotalExpense + totalExpense;
+  if (income < newTotalExpense) {
+    alert("Your Expense is way more then your income");
+    return 0;
+  }
   document.getElementById("total-expense").innerText = newTotalExpense;
 
   //Balance update
@@ -35,15 +39,20 @@ function getInputElementById(elemntId) {
 }
 
 function calculateExpense() {
+  const income = getIncomeAmount();
   //Calculate expense
   const foodExpense = getInputElementById("food");
   const rentExpense = getInputElementById("rent");
   const clothesExpenese = getInputElementById("clothes");
+  const totalExpense = foodExpense + rentExpense + clothesExpenese;
+  if (totalExpense > income) {
+    console.log("low income");
+  }
+
   if (isNaN(foodExpense) || isNaN(rentExpense) || isNaN(clothesExpenese)) {
     alert("Please Enter value");
     return 0;
   }
-  const totalExpense = foodExpense + rentExpense + clothesExpenese;
 
   return totalExpense;
 }
