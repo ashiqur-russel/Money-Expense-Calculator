@@ -16,6 +16,12 @@ function getIncomeAmount() {
   const incomeInputField = getInputElementById("income");
   if (isNaN(incomeInputField)) {
     alert("Please Enter Income value");
+    return 0;
+  } else if (incomeInputField === "" || incomeInputField < 0) {
+    alert("Please Enter a correct value");
+    document.getElementById("income").value = "";
+
+    return 0;
   }
   return incomeInputField;
 }
@@ -35,7 +41,7 @@ function calculateExpense() {
   const clothesExpenese = getInputElementById("clothes");
   if (isNaN(foodExpense) || isNaN(rentExpense) || isNaN(clothesExpenese)) {
     alert("Please Enter value");
-    return false;
+    return 0;
   }
   const totalExpense = foodExpense + rentExpense + clothesExpenese;
 
@@ -59,9 +65,19 @@ document.getElementById("btn-savings").addEventListener("click", () => {
 
 function calculateSavings() {
   const savingElementField = getInputElementById("savings");
+  console.log(savingElementField);
+  if (isNaN(savingElementField)) {
+    alert("Please enter correct input");
+    return 0;
+  } else if (savingElementField < 0) {
+    alert("Please enter positive number");
+    return 0;
+  }
   const savingPercentage = savingElementField / 100;
   const income = getIncomeAmount();
 
   const savingAmountPercantage = income * savingPercentage;
   return savingAmountPercantage;
 }
+
+function updateBalance() {}
