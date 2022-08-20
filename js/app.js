@@ -1,10 +1,8 @@
 document.getElementById("calculation").addEventListener("click", () => {
   const income = getIncomeAmount();
-  console.log(income);
 
   //Change expense field
   const totalExpense = calculateExpense();
-  console.log(totalExpense);
   const previousTotalExpense = getTextElementById("total-expense");
   const newTotalExpense = previousTotalExpense + totalExpense;
   document.getElementById("total-expense").innerText = newTotalExpense;
@@ -16,6 +14,9 @@ document.getElementById("calculation").addEventListener("click", () => {
 
 function getIncomeAmount() {
   const incomeInputField = getInputElementById("income");
+  if (isNaN(incomeInputField)) {
+    alert("Please Enter Income value");
+  }
   return incomeInputField;
 }
 
@@ -48,9 +49,19 @@ function getTextElementById(elemntId) {
   return textElementNumber;
 }
 
-function updateBalance(income, expense) {
-  const incomeBalance = income;
-  const expenseBalance = expense;
-  const newBalance = incomeBalance - expenseBalance;
-  console.log(newBalance);
+document.getElementById("btn-savings").addEventListener("click", () => {
+  const savings = calculateSavings();
+  document.getElementById("saving").innerText = savings;
+  const balanceField = getTextElementById("balance");
+  const remainingBalance = balanceField - savings;
+  document.getElementById("remain-balance").innerText = remainingBalance;
+});
+
+function calculateSavings() {
+  const savingElementField = getInputElementById("savings");
+  const savingPercentage = savingElementField / 100;
+  const income = getIncomeAmount();
+
+  const savingAmountPercantage = income * savingPercentage;
+  return savingAmountPercantage;
 }
